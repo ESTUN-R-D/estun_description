@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="estun_ier7_910_mi" params="prefix parent *origin child L1:=391.0 L2:=40.0 L3:=430.0 L4:=40.0 L5:=445.0 L6:=80.0 L7:=0.0">
+
+    <xacro:property name="l1_m" value="${L1/1000.0}" />
+    <xacro:property name="l2_m" value="${L2/1000.0}" />
+    <xacro:property name="l3_m" value="${L3/1000.0}" />
+    <xacro:property name="l4_m" value="${L4/1000.0}" />
+    <xacro:property name="l5_m" value="${L5/1000.0}" />
+    <xacro:property name="l6_m" value="${L6/1000.0}" />
+    <xacro:property name="l7_m" value="${L7/1000.0}" />
+
+    <xacro:property name="j1_limit" value="${radians(170)}" />
+    <xacro:property name="j2_limit_n" value="${radians(-80)}" />
+    <xacro:property name="j2_limit_p" value="${radians(135)}" />
+    <xacro:property name="j3_lower" value="${radians(-190)}" />
+    <xacro:property name="j3_upper" value="${radians(65)}" />
+    <xacro:property name="j4_limit" value="${radians(190)}" />
+    <xacro:property name="j5_limit" value="${radians(120)}" />
+    <xacro:property name="j6_limit" value="${radians(360)}" />
+
+    <xacro:property name="j1_effort" value="500" />
+    <xacro:property name="j2_effort" value="450" />
+    <xacro:property name="j3_effort" value="200" />
+    <xacro:property name="j4_effort" value="50" />
+    <xacro:property name="j5_effort" value="50" />
+    <xacro:property name="j6_effort" value="50" />
+
+    <xacro:property name="j1_velocity" value="${radians(335)}" />
+    <xacro:property name="j2_velocity" value="${radians(330)}" />
+    <xacro:property name="j3_velocity" value="${radians(405)}" />
+    <xacro:property name="j4_velocity" value="${radians(500)}" />
+    <xacro:property name="j5_velocity" value="${radians(450)}" />
+    <xacro:property name="j6_velocity" value="${radians(705)}" />
+    <joint name="${prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${prefix}base_link" />
+    </joint>
+
+    <link name="${prefix}base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/visual/base_link.dae"/></geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/collision/base_link.stl"/></geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_1" type="revolute">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}link_1"/>
+      <origin xyz="0 0 ${l1_m}" rpy="0 0 0"/>
+      <axis xyz="0 0 -1"/>
+      <limit lower="-${j1_limit}" upper="${j1_limit}" effort="${j1_effort}" velocity="${j1_velocity}"/>
+    </joint>
+
+    <link name="${prefix}link_1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/visual/link1.dae"/></geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/collision/link1.stl"/></geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_2" type="revolute">
+      <parent link="${prefix}link_1"/>
+      <child link="${prefix}link_2"/>
+      <origin xyz="${l2_m} 0 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="${j2_limit_n}" upper="${j2_limit_p}" effort="${j2_effort}" velocity="${j2_velocity}"/>
+    </joint>
+
+    <link name="${prefix}link_2">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/visual/link2.dae"/></geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/collision/link2.stl"/></geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_3" type="revolute">
+      <parent link="${prefix}link_2"/>
+      <child link="${prefix}link_3"/>
+      <origin xyz="0 0 ${l3_m}" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="${j3_lower}" upper="${j3_upper}" effort="${j3_effort}" velocity="${j3_velocity}"/>
+    </joint>
+
+    <link name="${prefix}link_3">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/visual/link3.dae"/></geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/collision/link3.stl"/></geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_4" type="revolute">
+      <parent link="${prefix}link_3"/>
+      <child link="${prefix}link_4"/>
+      <origin xyz="0 ${-l7_m} ${l4_m}" rpy="0 1.570796327 0"/>
+      <axis xyz="0 0 -1"/>
+      <limit lower="-${j4_limit}" upper="${j4_limit}" effort="${j4_effort}" velocity="${j4_velocity}"/>
+    </joint>
+
+    <link name="${prefix}link_4">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/visual/link4.dae"/></geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/collision/link4.stl"/></geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_5" type="revolute">
+      <parent link="${prefix}link_4"/>
+      <child link="${prefix}link_5"/>
+      <origin xyz="0 0 ${l5_m}" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="-${j5_limit}" upper="${j5_limit}" effort="${j5_effort}" velocity="${j5_velocity}"/>
+    </joint>
+
+    <link name="${prefix}link_5">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/visual/link5.dae"/></geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/collision/link5.stl"/></geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_6" type="revolute">
+      <parent link="${prefix}link_5"/>
+      <child link="${prefix}link_6"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="0 0 -1"/>
+      <limit lower="-${j6_limit}" upper="${j6_limit}" effort="${j6_effort}" velocity="${j6_velocity}"/>
+    </joint>
+
+    <link name="${prefix}link_6">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/visual/link6.dae"/></geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="package://estun_description/meshes/iER7-910-MI/collision/link6.stl"/></geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}flange"/>
+    <joint name="${prefix}flange_joint" type="fixed">
+      <parent link="${prefix}link_6"/>
+      <child link="${prefix}flange"/>
+      <origin xyz="0 0 ${l6_m}" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="${prefix}child_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}flange" />
+      <child link="${child}" />
+    </joint>
+
+  </xacro:macro>
+</robot>

@@ -1,0 +1,38 @@
+# joint_limits.yaml allows the dynamics properties specified in the URDF to be overwritten or augmented as needed
+
+default_velocity_scaling_factor: 0.1
+default_acceleration_scaling_factor: 0.1
+
+# Specific joint properties can be changed with the keys [max_position, min_position, max_velocity, max_acceleration]
+# Joint limits can be turned off with [has_velocity_limits, has_acceleration_limits]
+joint_limits:
+  joint_1:
+    has_velocity_limits: true
+    max_velocity: 3.2288591161895095
+    has_acceleration_limits: true
+    max_acceleration: 17.453292519943297 # 原值: 1000 deg/s^2
+  joint_2:
+    has_velocity_limits: true
+    max_velocity: 3.2288591161895095
+    has_acceleration_limits: true
+    max_acceleration: 15.707963267948966 # 原值: 900 deg/s^2
+  joint_3:
+    has_velocity_limits: true
+    max_velocity: 3.7000980142279785
+    has_acceleration_limits: true
+    max_acceleration: 23.56194490192345 # 原值: 1350 deg/s^2
+  joint_4:
+    has_velocity_limits: true
+    max_velocity: 8.377580409572781
+    has_acceleration_limits: true
+    max_acceleration: 52.35987755982988 # 原值: 3000 deg/s^2
+  joint_5:
+    has_velocity_limits: true
+    max_velocity: 7.190756518216638
+    has_acceleration_limits: true
+    max_acceleration: 36.65191429188092 # 原值: 2100 deg/s^2
+  joint_6:
+    has_velocity_limits: true
+    max_velocity: 12.304571226560023
+    has_acceleration_limits: true
+    max_acceleration: 80.28514559173917 # 原值: 4600 deg/s^2
