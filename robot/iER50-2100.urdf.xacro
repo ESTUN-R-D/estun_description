@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<robot name="estun_ier50_2100" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:arg name="kinematics_file" default="$(find estun_description)/config/iER50-2100/default_kinematics.yaml"/>
+
+  <xacro:property name="kinematics_dict" value="${xacro.load_yaml('$(arg kinematics_file)')}"/>
+
+  <xacro:include filename="$(find estun_description)/urdf/iER50-2100-macro.xacro" />
+
+  <link name="world" />
+  <link name="ee_link" />
+
+  <xacro:estun_ier50_2100 
+    prefix="" 
+    parent="world" 
+    child="ee_link"
+    L1="${kinematics_dict['kinematics']['L1']}"
+    L2="${kinematics_dict['kinematics']['L2']}"
+    L3="${kinematics_dict['kinematics']['L3']}"
+    L4="${kinematics_dict['kinematics']['L4']}"
+    L5="${kinematics_dict['kinematics']['L5']}"
+    L6="${kinematics_dict['kinematics']['L6']}"
+    L7="${kinematics_dict['kinematics']['L7']}"
+  >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:estun_ier50_2100>
+
+</robot>
